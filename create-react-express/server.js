@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost/mern`);
+mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost/googlebooks`);
 
 app.use(bodyParser.json());
 
