@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import NoMatch from "./pages/NoMatch";
+import Saved from "./pages/Saved";
+import Search from "./pages/Search";
 import "./App.css";
 
 class App extends Component {
