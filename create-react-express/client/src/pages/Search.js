@@ -92,11 +92,11 @@ class Books extends Component {
                 {this.state.books.map(book => (
                   <ListItem key={book._id}>
                     <Link to={"/books/" + book._id}>
-                      <strong>
+                      <h3>
                         {book.title}
-                      </strong>
-                      <h3> Written by {book.authors} </h3>
-                      <h3> Link {book.link} </h3>
+                      </h3>
+                      <h5> Written by {book.authors} </h5>
+                      <h5> Link {book.link} </h5>
                       <img src={book.image}></img>
                       <p> {book.description} </p>
                     </Link>
