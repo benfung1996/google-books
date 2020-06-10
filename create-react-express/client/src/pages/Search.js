@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { DeleteBtn, SaveBtn, ViewBtn } from "../components/Btn";
+import { SaveBtn, ViewBtn } from "../components/Btn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
@@ -29,8 +29,14 @@ class Books extends Component {
       .catch(err => console.log(err));
   };
 
-  deleteBook = id => {
-    API.deleteBook(id)
+  getBook = id => {
+    API.getBook(id)
+      .then(res => this.loadBooks())
+      .catch(err => console.log(err));
+  };
+
+  saveBook = bookData => {
+    API.saveBook(bookData)
       .then(res => this.loadBooks())
       .catch(err => console.log(err));
   };
@@ -63,8 +69,26 @@ class Books extends Component {
               <h3>Search for and Save Book of Interest</h3>
             </Jumbotron>
 
+            <form>
+                <h3>Book Search</h3>
+                <h5>Book</h5>
+              <Input
+                value={this.state.title}
+                onChange={this.handleInputChange}
+                name="title"
+                placeholder="Title (required)"
+              />
+               <FormBtn
+                disabled={!(this.state.title)}
+                onClick={this.handleFormSubmit}
+              >
+                Search
+              </FormBtn>
+            </form>
+
             {this.state.books.length ? (
               <List>
+                  <h3>Results</h3>
                 {this.state.books.map(book => (
                   <ListItem key={book._id}>
                     <Link to={"/books/" + book._id}>
@@ -77,7 +101,7 @@ class Books extends Component {
                       <p> {book.description} </p>
                     </Link>
                     <ViewBtn onClick={() => this.getBook(book._id)} />
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <SaveBtn onClick={() => this.saveBook(book.title, book.authors, book.link, book.image, book.description)} />
                   </ListItem>
                 ))}
               </List>

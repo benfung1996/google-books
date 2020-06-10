@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { DeleteBtn, SaveBtn, ViewBtn } from "../components/Btn";
+import { DeleteBtn, ViewBtn } from "../components/Btn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-import { Input, FormBtn } from "../components/Form";
 
 class Books extends Component {
   state = {
@@ -29,6 +28,12 @@ class Books extends Component {
       .catch(err => console.log(err));
   };
 
+  getBook = id => {
+    API.getBook(id)
+      .then(res => this.loadBooks())
+      .catch(err => console.log(err));
+  };
+
   deleteBook = id => {
     API.deleteBook(id)
       .then(res => this.loadBooks())
@@ -40,17 +45,6 @@ class Books extends Component {
     this.setState({
       [name]: value
     });
-  };
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (this.state.title) {
-      API.getBooks({
-        title: this.state.title,
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
   };
 
   render() {
@@ -65,6 +59,7 @@ class Books extends Component {
 
             {this.state.books.length ? (
               <List>
+                <h3>Results</h3>
                 {this.state.books.map(book => (
                   <ListItem key={book._id}>
                     <Link to={"/books/" + book._id}>
