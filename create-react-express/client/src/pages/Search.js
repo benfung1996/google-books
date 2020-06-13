@@ -7,9 +7,10 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, FormBtn } from "../components/Form";
 
-class Books extends Component {
+class Search extends Component {
   state = {
     books: [],
+    query: "",
     title: "",
     authors: "",
     description: "",
@@ -70,15 +71,17 @@ class Books extends Component {
             </Jumbotron>
 
             <form>
-                <h3>Book Search</h3>
-                <h5>Book</h5>
+              <h3>Book Search</h3>
+              <h5>Book</h5>
               <Input
                 value={this.state.title}
                 onChange={this.handleInputChange}
                 name="title"
                 placeholder="Title (required)"
               />
-               <FormBtn
+              <p>Test: {this.state.title}</p>
+
+              <FormBtn
                 disabled={!(this.state.title)}
                 onClick={this.handleFormSubmit}
               >
@@ -88,7 +91,7 @@ class Books extends Component {
 
             {this.state.books.length ? (
               <List>
-                  <h3>Results</h3>
+                <h3>Results</h3>
                 {this.state.books.map(book => (
                   <ListItem key={book._id}>
                     <Link to={"/books/" + book._id}>
@@ -115,4 +118,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default Search;
