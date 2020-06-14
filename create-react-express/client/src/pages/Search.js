@@ -7,38 +7,34 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, FormBtn } from "../components/Form";
 
+
 class Search extends Component {
   state = {
     books: [],
-    query: "",
-    title: "",
-    authors: "",
-    description: "",
-    image: "",
-    link: ""
+    value: ""
   };
 
   componentDidMount() {
-    this.loadBooks();
+    this.searchBook();
   }
 
-  loadBooks = () => {
-    API.getBooks()
-      .then(res =>
-        this.setState({ books: res.data, title: "", authors: "", description: "", image: "", link: "" })
-      )
-      .catch(err => console.log(err));
-  };
+  displayBook = bookData => {
+    return {
+      _id: bookData.id,
+      title: bookData.volumeInfo.title,
+      authors: bookData.volumeInfo.authors,
+      description: bookData.volumeInfo.description,
+      image: bookData.volumeInfo.imageLinks.thumbnail,
+      link: bookData.volumeInfo.previewLink
+    }
+  }
 
-  getBook = id => {
-    API.getBook(id)
-      .then(res => this.loadBooks())
-      .catch(err => console.log(err));
-  };
-
-  saveBook = bookData => {
-    API.saveBook(bookData)
-      .then(res => this.loadBooks())
+  searchBook = query => {
+    API.searchBook(query)
+      .then(res => this.setState({ 
+        books: res.data.items
+        .map(result => this.displayBook(result)) 
+      }))
       .catch(err => console.log(err));
   };
 
@@ -46,18 +42,14 @@ class Search extends Component {
     const { name, value } = event.target;
     this.setState({
       [name]: value
-    });
+    })
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title) {
-      API.getBooks({
-        title: this.state.title,
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
+      this.searchBook(this.state.search,
+)
+
   };
 
   render() {
@@ -74,7 +66,7 @@ class Search extends Component {
               <h3>Book Search</h3>
               <h5>Book</h5>
               <Input
-                value={this.state.title}
+                search={this.state.search}
                 onChange={this.handleInputChange}
                 name="title"
                 placeholder="Title (required)"
@@ -82,7 +74,6 @@ class Search extends Component {
               <p>Test: {this.state.title}</p>
 
               <FormBtn
-                disabled={!(this.state.title)}
                 onClick={this.handleFormSubmit}
               >
                 Search
