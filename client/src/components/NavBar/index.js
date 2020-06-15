@@ -11,7 +11,7 @@ function Navbar() {
             <div className="container">
                 <Link className="navbar-brand" to="/">Google Books</Link>
                 <ul className="navbar-nav">
-                    <li className="nav-item">
+                    <li className="nav-item" id="nav-item-1">
                         <Link
                             to="/search"
                             className={window.location.pathname === "/search" ? "nav-link active" : "nav-link"}

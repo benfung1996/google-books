@@ -1,5 +1,5 @@
 nav {
-    background-color: rgb(255,143,111)
+    background-color: #343b40;
 }
 
 a {
@@ -17,4 +17,17 @@ a {
 
 .nav-item {
     font-size: 25px;
+}
+
+.navbar-nav {
+    padding-bottom: 15px;
+}
+
+.navbar {
+    margin: 0px;
+    padding: 0px;
+}
+
+#nav-item-1 {
+    padding-right: 10px;
 }
