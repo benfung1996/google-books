@@ -15,5 +15,5 @@ Saved - Renders all books saved to the Mongo database. User has an option to "Vi
 4) Find saved books in "Saved".
 
 ## Images
-![](image/GameOfThrones.png)
+![](image/Landing.png)
 ![](image/Saved.png)
