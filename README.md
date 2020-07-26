@@ -14,6 +14,9 @@ Saved - Renders all books saved to the Mongo database. User has an option to "Vi
 3) Click "Save" to store books.
 4) Find saved books in "Saved".
 
+## Tool Used
+React, CSS, Express, Node, MongoDB, Axios, Google Books API, Heroku
+
 ## Images
 ![](image/Landing.png)
 ![](image/Saved.png)
